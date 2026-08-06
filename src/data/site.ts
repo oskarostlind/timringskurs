@@ -18,6 +18,19 @@ export const site = {
   orgNr: "",
 } as const;
 
+/**
+ * Sociala kanaler. Lägg till fler poster här när Ola har egen
+ * Facebook-sida eller YouTube-kanal — de dyker upp i sidfoten automatiskt.
+ */
+export const sociala = [
+  {
+    namn: "Jägarexamen Norrbotten",
+    typ: "facebook" as const,
+    url: "https://www.facebook.com/JagarexamenNorrbotten",
+    beskrivning: "Facebookgrupp med extra kurstillfällen och nyheter",
+  },
+];
+
 export const nav = [
   { href: "/kurser/timringskurs", label: "Timringskurs" },
   { href: "/kurser/motorsagskurs", label: "Motorsågskurs" },

@@ -14,7 +14,7 @@ export default function Header() {
           <span className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
             {site.name}
           </span>
-          <span className="mt-1 text-[11px] uppercase tracking-[0.18em] text-skog-100/70">
+          <span className="mt-1 hidden text-[11px] uppercase tracking-[0.18em] text-skog-100/70 min-[380px]:block">
             Kurser i skog och hantverk
           </span>
         </Link>

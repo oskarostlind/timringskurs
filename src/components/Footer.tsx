@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { nav, site } from "@/data/site";
+import { nav, site, sociala } from "@/data/site";
+import SocialLank from "./SocialLank";
 
 export default function Footer() {
   return (
@@ -13,6 +14,15 @@ export default function Footer() {
             {site.tagline}. Kurser i Norrbotten och på plats efter
             överenskommelse.
           </p>
+          {sociala.length > 0 && (
+            <ul className="mt-5 space-y-2.5">
+              {sociala.map((s) => (
+                <li key={s.url}>
+                  <SocialLank url={s.url} namn={s.namn} typ={s.typ} />
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div>

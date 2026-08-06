@@ -14,7 +14,7 @@ export default function KursKort({ kurs }: { kurs: Kurs }) {
         src={kurs.bild}
         alt={kurs.namn}
         label={kurs.namn}
-        className="aspect-[4/3] w-full"
+        className="aspect-[16/9] w-full sm:aspect-[4/3]"
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
       />
       <div className="flex flex-1 flex-col p-5">

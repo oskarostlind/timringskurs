@@ -17,19 +17,19 @@ export default function Home() {
           alt=""
           className="absolute inset-0 -z-10 h-full w-full"
         />
-        <div className="mx-auto max-w-6xl px-5 py-20 sm:py-28 lg:py-32">
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:py-28 lg:py-32">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-tra-400">
             Norrhed Skog · Boden
           </p>
-          <h1 className="mt-5 max-w-3xl font-display text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 max-w-3xl font-display text-[2rem] leading-[1.12] font-semibold tracking-tight sm:mt-5 sm:text-5xl lg:text-6xl">
             Timringskurser och skogsutbildning — med yxa i hand
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-lin-200">
+          <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-lin-200 sm:mt-6 sm:text-lg">
             Knuttimring, motorsågskörkort, röjsågskörkort, solosåg, jägarexamen
             och skjutträning. Små grupper, mycket praktik och tid vid din egen
             stock.
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row">
             <Link
               href="#kurser"
               className="rounded-lg bg-tra-500 px-6 py-3.5 text-center font-medium text-skog-950 transition hover:bg-tra-400"
@@ -71,44 +71,47 @@ export default function Home() {
             {tillfallen.map((t, i) => (
               <li
                 key={`${t.slug}-${i}`}
-                className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
               >
-                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                  <span className="min-w-[7.5rem] font-display text-lg font-semibold text-skog-800">
-                    {t.datum}
-                  </span>
-                  <span className="text-kol-900">{t.ort}</span>
-                  <Link
-                    href={`/kurser/${t.slug}`}
-                    className="text-sm text-kol-500 underline underline-offset-4 hover:text-skog-700"
-                  >
-                    {t.kurs}
-                  </Link>
-                </div>
-                <div className="flex items-center gap-4">
-                  {t.pris && (
-                    <span className="text-sm font-medium text-kol-700">
-                      {t.pris}
+                <div className="min-w-0">
+                  <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <span className="font-display text-lg font-semibold text-skog-800">
+                      {t.datum}
                     </span>
-                  )}
-                  {t.anmalanUrl ? (
-                    <a
-                      href={t.anmalanUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-lg border border-skog-800 px-4 py-2 text-sm font-medium text-skog-800 transition hover:bg-skog-800 hover:text-lin-50"
-                    >
-                      Anmäl via SV
-                    </a>
-                  ) : (
+                    <span className="text-kol-900">{t.ort}</span>
+                  </p>
+                  <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-kol-500">
                     <Link
-                      href={`/kontakt?kurs=${t.slug}`}
-                      className="rounded-lg bg-skog-800 px-4 py-2 text-sm font-medium text-lin-50 transition hover:bg-skog-700"
+                      href={`/kurser/${t.slug}`}
+                      className="underline underline-offset-4 hover:text-skog-700"
                     >
-                      Anmäl dig
+                      {t.kurs}
                     </Link>
-                  )}
+                    {t.pris && (
+                      <>
+                        <span aria-hidden>·</span>
+                        <span className="font-medium text-kol-700">{t.pris}</span>
+                      </>
+                    )}
+                  </p>
                 </div>
+                {t.anmalanUrl ? (
+                  <a
+                    href={t.anmalanUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 rounded-lg border border-skog-800 px-4 py-2.5 text-center text-sm font-medium text-skog-800 transition hover:bg-skog-800 hover:text-lin-50"
+                  >
+                    Anmäl via SV
+                  </a>
+                ) : (
+                  <Link
+                    href={`/kontakt?kurs=${t.slug}`}
+                    className="shrink-0 rounded-lg bg-skog-800 px-4 py-2.5 text-center text-sm font-medium text-lin-50 transition hover:bg-skog-700"
+                  >
+                    Anmäl dig
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

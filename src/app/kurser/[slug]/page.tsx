@@ -5,6 +5,7 @@ import { getKurs, kurser } from "@/data/kurser";
 import { site } from "@/data/site";
 import Media from "@/components/Media";
 import AnmalanForm from "@/components/AnmalanForm";
+import SocialLank from "@/components/SocialLank";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -204,6 +205,20 @@ export default async function KursSida({ params }: Params) {
               Mejla oss
             </a>
           </div>
+
+          {kurs.lankar && kurs.lankar.length > 0 && (
+            <div className="mt-6 space-y-3">
+              {kurs.lankar.map((l) => (
+                <SocialLank
+                  key={l.url}
+                  url={l.url}
+                  namn={l.namn}
+                  beskrivning={l.beskrivning}
+                  variant="kort"
+                />
+              ))}
+            </div>
+          )}
 
           <div className="mt-6 rounded-xl border border-lin-200 bg-lin-100 p-6">
             <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-kol-500">

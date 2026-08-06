@@ -26,6 +26,8 @@ export type Kurs = {
   tillfallen: Tillfalle[];
   /** Om anmälan sker via extern part istället för vårt formulär */
   externAnmalan?: { namn: string; url: string };
+  /** Externa länkar som visas i sidopanelen på kurssidan */
+  lankar?: { namn: string; url: string; beskrivning?: string }[];
 };
 
 const SV_URL = "https://www.sv.se";
@@ -182,6 +184,14 @@ export const kurser: Kurs[] = [
       "Matsäck",
     ],
     // bild: "/bilder/jagarexamen.jpg", // ← lägg bilden i public/bilder och avkommentera
+    lankar: [
+      {
+        namn: "Jägarexamen Norrbotten",
+        url: "https://www.facebook.com/JagarexamenNorrbotten",
+        beskrivning: "Facebookgrupp där extra kurstillfällen läggs upp",
+      },
+      // TODO: lägg till länk till Sunderby Jakt & Sportskytteklubb när adressen är bekräftad
+    ],
     tillfallen: [
       { datum: "28–31 maj", ort: "Sunderbyn", pris: "5 500 kr" },
       { datum: "25–28 juni", ort: "Sunderbyn", pris: "5 500 kr" },
