@@ -78,7 +78,22 @@ export default async function Home() {
             </Link>
           </div>
 
-          <ul className="mt-10 divide-y divide-lin-200 overflow-hidden rounded-xl border border-lin-200 bg-white">
+          {tillfallen.length === 0 && (
+            <div className="mt-10 rounded-xl border border-dashed border-lin-300 bg-white p-8 text-center">
+              <p className="text-kol-700">
+                Just nu ligger inga datum uppe. Hör av dig så berättar vi när
+                nästa kurs går — vi lägger till tillfällen löpande.
+              </p>
+              <Link
+                href="/kontakt"
+                className="mt-5 inline-block rounded-lg bg-skog-800 px-5 py-2.5 text-sm font-medium text-lin-50 transition hover:bg-skog-700"
+              >
+                Anmäl intresse
+              </Link>
+            </div>
+          )}
+
+          <ul className="mt-10 divide-y divide-lin-200 overflow-hidden rounded-xl border border-lin-200 bg-white empty:hidden">
             {tillfallen.map((t, i) => (
               <li
                 key={`${t.slug}-${i}`}
