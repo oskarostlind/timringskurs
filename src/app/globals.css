@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-skog-950: #0f2010;
+  --color-skog-900: #16301a;
+  --color-skog-800: #1d4223;
+  --color-skog-700: #275a2f;
+  --color-skog-600: #35773f;
+  --color-skog-100: #dfeadf;
+
+  --color-tra-700: #7a4a1e;
+  --color-tra-600: #9a5f27;
+  --color-tra-500: #c08040;
+  --color-tra-400: #d8a163;
+  --color-tra-100: #f3e6d5;
+
+  --color-lin-50: #fbf9f5;
+  --color-lin-100: #f5f1e8;
+  --color-lin-200: #e8e1d3;
+  --color-lin-300: #d5cbb7;
+
+  --color-kol-900: #1b1a17;
+  --color-kol-700: #3f3c36;
+  --color-kol-500: #6b665c;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-lin-50);
+  color: var(--color-kol-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-skog-800);
+  color: var(--color-lin-50);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-skog-700);
+  outline-offset: 3px;
+}
