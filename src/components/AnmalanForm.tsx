@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { kurser } from "@/data/kurser";
 
 type Status = "idle" | "skickar" | "klar" | "fel";
 
 export default function AnmalanForm({
   förvaldKurs,
+  kurser,
 }: {
   förvaldKurs?: string;
+  kurser: { slug: string; namn: string }[];
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [felmeddelande, setFelmeddelande] = useState("");

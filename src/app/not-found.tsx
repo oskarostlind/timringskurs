@@ -1,8 +1,19 @@
 import Link from "next/link";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { hamtaNav, hamtaSite, hamtaSociala } from "@/lib/innehall";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const [site, nav, sociala] = await Promise.all([
+    hamtaSite(),
+    hamtaNav(),
+    hamtaSociala(),
+  ]);
+
   return (
-    <div className="mx-auto flex max-w-3xl flex-col items-start px-5 py-28">
+    <>
+      <Header site={site} nav={nav} />
+      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-start px-5 py-28">
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-tra-600">
         404
       </p>
@@ -18,6 +29,8 @@ export default function NotFound() {
       >
         Till startsidan
       </Link>
-    </div>
+      </main>
+      <Footer site={site} nav={nav} sociala={sociala} />
+    </>
   );
 }

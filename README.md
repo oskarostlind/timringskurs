@@ -1,66 +1,79 @@
 # timringskurs.nu — Norrhed Skog
 
-Ny webbplats för Norrhed Skog (timringskurs.nu). Next.js 16 (App Router), React 19, Tailwind CSS 4, TypeScript. Byggd för deploy på Vercel.
+Ny webbplats för Norrhed Skog (timringskurs.nu). Next.js 16 (App Router), React 19, Tailwind CSS 4, TypeScript. Innehållet redigeras i Sanity Studio. Byggd för deploy på Vercel.
 
 ## Kom igång
 
 ```bash
 npm install
+cp .env.example .env.local   # fyll i värdena
 npm run dev
 ```
 
-Sajten körs på http://localhost:3000
+Sajten körs på http://localhost:3000, redigeringsverktyget på http://localhost:3000/studio
 
-## Var innehållet ligger
+Första `npm run build` tar några minuter — Studio är ett stort paket att bygga.
 
-Allt redaktionellt innehåll ligger i `src/data/` — du behöver inte röra komponenterna för att ändra text, datum eller priser.
+## Innehåll
 
-| Fil | Innehåller |
+Allt redaktionellt innehåll ligger i Sanity (projekt `pv9m05mm`, dataset `production`) och redigeras på **/studio**. Ola är tänkt användare — se [`docs/lathund-ola.md`](docs/lathund-ola.md).
+
+| Var | Vad |
 | --- | --- |
-| `src/data/kurser.ts` | Alla sex kurser: beskrivningar, priser, innehåll, ta-med-listor och kurstillfällen |
-| `src/data/site.ts` | Företagsnamn, telefon, e-post, adress, org.nr, huvudmeny |
-| `src/data/media.ts` | YouTube-klipp och galleribilder |
+| `sanity/schemaTypes/` | Innehållsmodellen: kurs, kurstillfälle, startsida, kontaktuppgifter |
+| `sanity/structure.ts` | Menyn i Studio |
+| `sanity/lib/queries.ts` | GROQ-frågorna |
+| `src/lib/innehall.ts` | Hämtar och formaterar innehållet åt sidorna |
+| `src/data/` | **Reservinnehåll.** Används bara om Sanity är tomt eller onåbart |
 
-### Lägga till ett kurstillfälle
+Sidorna importerar aldrig `src/data` direkt — de anropar `hamtaKurser()`, `hamtaSite()` och `hamtaStartsida()` i `src/lib/innehall.ts`, som faller tillbaka på `src/data` om Sanity inte svarar. Sajten går alltså aldrig ner för att Sanity gör det.
 
-Öppna `src/data/kurser.ts`, hitta rätt kurs och lägg till i `tillfallen`:
+### Datum och priser
 
-```ts
-{ datum: "12–13 september", ort: "Boden", pris: "3 500 kr" }
-```
+Kurstillfällen lagras som riktiga datum (`startDatum` / `slutDatum`) och priser som tal. Formateringen till `"9–10 maj 2027"` och `"5 500 kr"` sker i `src/lib/innehall.ts`. Passerade tillfällen filtreras bort automatiskt.
 
-Lägg till `anmalanUrl: "https://www.sv.se/..."` om anmälan sker via Studieförbundet Vuxenskolan — då byts knappen ut mot en länk dit istället för det egna formuläret.
+### Uppdateringsfrekvens
 
-### Lägga till bilder
+Sidorna hämtar om innehållet var 60:e sekund (`REVALIDERA` i `src/lib/innehall.ts`). För omedelbar uppdatering finns webhooken `/api/revalidate` — se nedan.
 
-1. Lägg bildfilen i `public/bilder/`, t.ex. `public/bilder/timringskurs.jpg`
-2. Avkommentera `bild:`-raden för kursen i `src/data/kurser.ts`
+## Engångsuppsättning
 
-Utan bild visas en dekorativ platshållare — inget går sönder.
+1. **Miljövariabler** i `.env.local` och i Vercel → Settings → Environment Variables (se `.env.example`).
 
-Galleriet på startsidan fylls på i `src/data/media.ts` (`galleri`). Tom lista döljer hela sektionen.
+2. **Fyll Sanity med nuvarande innehåll:**
 
-**Rekommenderad bildstorlek:** minst 1600 px bred. Bilderna på gamla sajten är 300 px och för små för att användas.
+   ```bash
+   npx sanity login
+   npm run seed            # bygger sanity/seed/innehall.ndjson från src/data
+   npm run sanity:import
+   ```
+
+   Kurstillfällen och bilder ingår inte i importen — de gamla datumen saknade årtal, så de skrivs in i Studio.
+
+3. **Bjud in Ola:** sanity.io/manage → projektet → Members → Invite. Rollen *Editor* räcker; den tillåter allt utom att ändra projektinställningar.
+
+4. **Webhook för direktpublicering** (valfritt men trevligt): sanity.io/manage → API → Webhooks → Create webhook.
+   - URL: `https://timringskurs.nu/api/revalidate`
+   - Dataset: `production`, trigger på create/update/delete
+   - Secret: samma sträng som miljövariabeln `SANITY_REVALIDATE_SECRET`
 
 ## Anmälningsformuläret
 
-Formuläret postar till `/api/anmalan`, som mejlar via [Resend](https://resend.com). Sätt miljövariablerna i `.env.local` lokalt och i Vercel-projektets Environment Variables i produktion — se `.env.example`.
-
-Utan `RESEND_API_KEY` visar formuläret ett meddelande om att ringa istället, och anmälan loggas i serverloggen.
+Formuläret postar till `/api/anmalan`, som mejlar via [Resend](https://resend.com). Utan `RESEND_API_KEY` visar formuläret ett meddelande om att ringa istället, och anmälan loggas i serverloggen.
 
 ## Sidor
 
-- `/` — start: hero, kommande tillfällen, kursutbud, om, video, kontakt
-- `/kurser/[slug]` — en sida per kurs, genereras statiskt från `kurser.ts`
+- `/` — start: hero, kommande tillfällen, kursutbud, om, video, galleri, kontakt
+- `/kurser/[slug]` — en sida per kurs
 - `/om` — om Norrhed Skog
 - `/kontakt` — anmälningsformulär och kontaktuppgifter
+- `/studio` — Sanity Studio (redigering)
 - `/sitemap.xml`, `/robots.txt` — genereras automatiskt
 
 ## Kvar att fylla i
 
-Sök på `TODO` i koden. I korthet:
-
-- E-postadress och organisationsnummer i `src/data/site.ts`
-- Olas egen text om bakgrund och behörigheter i `src/app/om/page.tsx`
-- Priser för motorsåg, röjsåg och solosåg i `src/data/kurser.ts`
-- Riktiga bilder i `public/bilder/`
+- Kurstillfällen med riktiga datum i Studio
+- Högupplösta bilder (minst 1600 px breda) i Studio
+- E-postadress och organisationsnummer under *Kontakt och företagsuppgifter*
+- Olas egen text om bakgrund och behörigheter i `src/app/(site)/om/page.tsx`
+- Priser för motorsåg, röjsåg och solosåg

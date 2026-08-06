@@ -1,7 +1,7 @@
 type Props = {
   url: string;
   namn: string;
-  typ?: "facebook" | "youtube" | "instagram";
+  typ?: "facebook" | "youtube" | "instagram" | "annan";
   variant?: "footer" | "kort";
   beskrivning?: string;
 };

@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getKurs } from "@/data/kurser";
-import { site } from "@/data/site";
 import AnmalanForm from "@/components/AnmalanForm";
+import { hamtaKurser, hamtaSite } from "@/lib/innehall";
 
-export const metadata: Metadata = {
-  title: "Kontakt och anmälan",
-  description: `Anmäl dig till en kurs hos ${site.name} eller hör av dig med frågor. Telefon ${site.phone}.`,
-  alternates: { canonical: "/kontakt" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await hamtaSite();
+  return {
+    title: "Kontakt och anmälan",
+    description: `Anmäl dig till en kurs hos ${site.name} eller hör av dig med frågor. Telefon ${site.phone}.`,
+    alternates: { canonical: "/kontakt" },
+  };
+}
 
 export default async function KontaktSida({
   searchParams,
 }: {
   searchParams: Promise<{ kurs?: string }>;
 }) {
-  const { kurs: slug } = await searchParams;
-  const förvald = slug ? getKurs(slug)?.namn : undefined;
+  const [{ kurs: slug }, kurser, site] = await Promise.all([
+    searchParams,
+    hamtaKurser(),
+    hamtaSite(),
+  ]);
+  const förvald = slug ? kurser.find((k) => k.slug === slug)?.namn : undefined;
 
   return (
     <>
@@ -45,7 +51,7 @@ export default async function KontaktSida({
             Anmälningsformulär
           </h2>
           <div className="mt-8">
-            <AnmalanForm förvaldKurs={förvald} />
+            <AnmalanForm förvaldKurs={förvald} kurser={kurser} />
           </div>
         </div>
 

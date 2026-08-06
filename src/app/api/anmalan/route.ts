@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { site } from "@/data/site";
+import { hamtaSite } from "@/lib/innehall";
 
 export const runtime = "nodejs";
 
@@ -56,6 +56,7 @@ export async function POST(req: Request) {
     .join("\n");
 
   const apiKey = process.env.RESEND_API_KEY;
+  const site = await hamtaSite();
   const till = process.env.ANMALAN_EPOST ?? site.email;
   const fran = process.env.ANMALAN_AVSANDARE ?? "Anmälan <onboarding@resend.dev>";
 

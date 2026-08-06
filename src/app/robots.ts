@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/data/site";
+import { hamtaSite } from "@/lib/innehall";
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const site = await hamtaSite();
   return {
     rules: [{ userAgent: "*", allow: "/" }],
     sitemap: `${site.url}/sitemap.xml`,

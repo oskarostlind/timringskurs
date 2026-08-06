@@ -1,33 +1,44 @@
 import Link from "next/link";
-import { allaTillfallen, kurser } from "@/data/kurser";
-import { galleri, videos } from "@/data/media";
-import { site } from "@/data/site";
 import KursKort from "@/components/KursKort";
 import Media from "@/components/Media";
+import {
+  hamtaKurser,
+  hamtaSite,
+  hamtaStartsida,
+  hamtaTillfallen,
+} from "@/lib/innehall";
 
-export default function Home() {
-  const tillfallen = allaTillfallen();
+export default async function Home() {
+  const [kurser, tillfallen, site, startsida] = await Promise.all([
+    hamtaKurser(),
+    hamtaTillfallen(),
+    hamtaSite(),
+    hamtaStartsida(),
+  ]);
+  const { galleri, videor } = startsida;
 
   return (
     <>
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-skog-900 text-lin-50">
         <Media
-          src={undefined}
+          src={startsida.heroBild}
           alt=""
+          priority
+          sizes="100vw"
           className="absolute inset-0 -z-10 h-full w-full"
         />
         <div className="mx-auto max-w-6xl px-5 py-16 sm:py-28 lg:py-32">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-tra-400">
-            Norrhed Skog · Boden
+            {site.name} · {site.address.city}
           </p>
           <h1 className="mt-4 max-w-3xl font-display text-[2rem] leading-[1.12] font-semibold tracking-tight sm:mt-5 sm:text-5xl lg:text-6xl">
-            Timringskurser och skogsutbildning — med yxa i hand
+            {startsida.rubrik ??
+              "Timringskurser och skogsutbildning — med yxa i hand"}
           </h1>
           <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-lin-200 sm:mt-6 sm:text-lg">
-            Knuttimring, motorsågskörkort, röjsågskörkort, solosåg, jägarexamen
-            och skjutträning. Små grupper, mycket praktik och tid vid din egen
-            stock.
+            {startsida.ingress ??
+              "Knuttimring, motorsågskörkort, röjsågskörkort, solosåg, jägarexamen och skjutträning. Små grupper, mycket praktik och tid vid din egen stock."}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row">
             <Link
@@ -170,13 +181,13 @@ export default function Home() {
       </section>
 
       {/* Video */}
-      {videos.length > 0 && (
+      {videor.length > 0 && (
         <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
           <h2 className="font-display text-3xl font-semibold text-skog-900 sm:text-4xl">
             Se hur en kurs går till
           </h2>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
-            {videos.map((v) => (
+            {videor.map((v) => (
               <figure key={v.id}>
                 <div className="aspect-video overflow-hidden rounded-xl bg-skog-950">
                   <iframe

@@ -1,8 +1,17 @@
 import Link from "next/link";
-import { nav, site, sociala } from "@/data/site";
+import type { Site, SocialKanal } from "@/data/site";
+import type { NavPost } from "@/lib/typer";
 import SocialLank from "./SocialLank";
 
-export default function Footer() {
+export default function Footer({
+  site,
+  nav,
+  sociala,
+}: {
+  site: Site;
+  nav: NavPost[];
+  sociala: SocialKanal[];
+}) {
   return (
     <footer className="mt-24 border-t border-skog-800/40 bg-skog-950 text-lin-200">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4">

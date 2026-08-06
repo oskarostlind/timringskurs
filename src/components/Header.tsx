@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { nav, site } from "@/data/site";
+import type { Site } from "@/data/site";
+import type { NavPost } from "@/lib/typer";
 
-export default function Header() {
+export default function Header({ site, nav }: { site: Site; nav: NavPost[] }) {
   const [open, setOpen] = useState(false);
 
   return (

@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { kurser } from "@/data/kurser";
-import { site } from "@/data/site";
+import { hamtaKurser, hamtaSite } from "@/lib/innehall";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const nu = new Date();
+  const [kurser, site] = await Promise.all([hamtaKurser(), hamtaSite()]);
   return [
     { url: site.url, lastModified: nu, priority: 1 },
     { url: `${site.url}/om`, lastModified: nu, priority: 0.6 },

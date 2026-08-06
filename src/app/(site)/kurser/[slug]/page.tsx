@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getKurs, kurser } from "@/data/kurser";
-import { site } from "@/data/site";
 import Media from "@/components/Media";
 import AnmalanForm from "@/components/AnmalanForm";
 import SocialLank from "@/components/SocialLank";
+import { hamtaKurs, hamtaKurser, hamtaSite } from "@/lib/innehall";
 
 type Params = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const kurser = await hamtaKurser();
   return kurser.map((k) => ({ slug: k.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const kurs = getKurs(slug);
+  const [kurs, site] = await Promise.all([hamtaKurs(slug), hamtaSite()]);
   if (!kurs) return {};
   return {
     title: kurs.namn,
@@ -31,7 +31,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function KursSida({ params }: Params) {
   const { slug } = await params;
-  const kurs = getKurs(slug);
+  const [kurs, kurser, site] = await Promise.all([
+    hamtaKurs(slug),
+    hamtaKurser(),
+    hamtaSite(),
+  ]);
   if (!kurs) notFound();
 
   const jsonLd = {
@@ -253,7 +257,7 @@ export default async function KursSida({ params }: Params) {
             information.
           </p>
           <div className="mt-9">
-            <AnmalanForm förvaldKurs={kurs.namn} />
+            <AnmalanForm förvaldKurs={kurs.namn} kurser={kurser} />
           </div>
         </div>
       </section>

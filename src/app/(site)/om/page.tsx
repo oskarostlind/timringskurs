@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { site } from "@/data/site";
-import { kurser } from "@/data/kurser";
 import Media from "@/components/Media";
+import { hamtaKurser, hamtaSite } from "@/lib/innehall";
 
-export const metadata: Metadata = {
-  title: "Om Norrhed Skog",
-  description: `${site.name} drivs av ${site.owner} i Boden och håller kurser i timring, motorsåg, röjsåg, solosåg, jägarexamen och skjutträning.`,
-  alternates: { canonical: "/om" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await hamtaSite();
+  return {
+    title: `Om ${site.name}`,
+    description: `${site.name} drivs av ${site.owner} i ${site.address.city} och håller kurser i timring, motorsåg, röjsåg, solosåg, jägarexamen och skjutträning.`,
+    alternates: { canonical: "/om" },
+  };
+}
 
-export default function OmSida() {
+export default async function OmSida() {
+  const [kurser, site] = await Promise.all([hamtaKurser(), hamtaSite()]);
+
   return (
     <>
       <section className="bg-skog-900 text-lin-50">

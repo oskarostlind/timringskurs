@@ -1,10 +1,13 @@
 export type Tillfalle = {
+  /** Färdigformaterad period, t.ex. "9–10 maj 2027" */
   datum: string;
+  /** Startdatum som YYYY-MM-DD, används för sortering */
+  startDatum?: string;
   ort: string;
   pris?: string;
   /** Extern anmälningslänk, t.ex. Studieförbundet Vuxenskolan */
   anmalanUrl?: string;
-  status?: "öppen" | "fåtal platser" | "fullbokad";
+  status?: "öppen" | "fåtal platser" | "fullbokad" | "inställd";
 };
 
 export type Kurs = {
@@ -21,8 +24,12 @@ export type Kurs = {
   innehall: string[];
   forkunskaper: string;
   taMed: string[];
-  /** Sökväg till bild i /public/bilder. Utelämnas → dekorativ platshållare visas. */
+  /** Bild-URL (från Sanity) eller sökväg i /public/bilder. Utelämnas → platshållare. */
   bild?: string;
+  /** Bildbeskrivning för skärmläsare */
+  bildAlt?: string;
+  /** Visa kursen i menyn. Odefinierat räknas som ja. */
+  visaINavigering?: boolean;
   tillfallen: Tillfalle[];
   /** Om anmälan sker via extern part istället för vårt formulär */
   externAnmalan?: { namn: string; url: string };

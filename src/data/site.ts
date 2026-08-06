@@ -1,4 +1,28 @@
-export const site = {
+export type Site = {
+  name: string;
+  tagline: string;
+  description: string;
+  url: string;
+  owner: string;
+  phone: string;
+  phoneHref: string;
+  email: string;
+  address: { line1: string; city: string; country: string };
+  orgNr: string;
+};
+
+export type SocialKanal = {
+  namn: string;
+  typ: "facebook" | "instagram" | "youtube" | "annan";
+  url: string;
+  beskrivning?: string;
+};
+
+/**
+ * Reservinnehåll. Används bara innan Sanity är ifyllt, eller om Sanity
+ * skulle vara onåbart. Redigeras normalt i Studio på /studio.
+ */
+export const site: Site = {
   name: "Norrhed Skog",
   tagline: "Timringskurser, motorsågsutbildning och jägarexamen",
   description:
@@ -16,16 +40,16 @@ export const site = {
   },
   // TODO: fyll i organisationsnummer
   orgNr: "",
-} as const;
+};
 
 /**
- * Sociala kanaler. Lägg till fler poster här när Ola har egen
- * Facebook-sida eller YouTube-kanal — de dyker upp i sidfoten automatiskt.
+ * Sociala kanaler. Redigeras normalt i Studio under
+ * “Kontakt och företagsuppgifter”.
  */
-export const sociala = [
+export const sociala: SocialKanal[] = [
   {
     namn: "Jägarexamen Norrbotten",
-    typ: "facebook" as const,
+    typ: "facebook",
     url: "https://www.facebook.com/JagarexamenNorrbotten",
     beskrivning: "Facebookgrupp med extra kurstillfällen och nyheter",
   },
