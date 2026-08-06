@@ -38,7 +38,7 @@ Sidorna hämtar om innehållet var 60:e sekund (`REVALIDERA` i `src/lib/innehall
 
 ## Engångsuppsättning
 
-1. **Miljövariabler** i `.env.local` och i Vercel → Settings → Environment Variables (se `.env.example`).
+1. **Miljövariabler.** Sanitys projekt-ID och dataset har standardvärden i `sanity/env.ts`, så sajten och Studio fungerar utan konfiguration. Bara Resend-nycklarna och `SANITY_REVALIDATE_SECRET` behöver sättas i `.env.local` och i Vercel → Settings → Environment Variables (se `.env.example`).
 
 2. **Fyll Sanity med nuvarande innehåll:**
 
