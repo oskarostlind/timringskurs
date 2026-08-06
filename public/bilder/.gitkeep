@@ -1,0 +1,2 @@
+Lägg kursbilder här, t.ex. timringskurs.jpg (minst 1600 px bred).
+Aktivera dem sedan genom att avkommentera bild:-raden i src/data/kurser.ts.
