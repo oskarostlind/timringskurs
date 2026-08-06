@@ -1,4 +1,3 @@
-import { CogIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 /** Singleton: kontaktuppgifter och sådant som återkommer på hela sajten. */
@@ -6,7 +5,6 @@ export const sidinstallningar = defineType({
   name: "sidinstallningar",
   title: "Kontakt och företagsuppgifter",
   type: "document",
-  icon: CogIcon,
   groups: [
     { name: "kontakt", title: "Kontakt", default: true },
     { name: "foretag", title: "Företaget" },

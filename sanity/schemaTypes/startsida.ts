@@ -1,4 +1,3 @@
-import { HomeIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 /** Singleton: texten högst upp på startsidan, galleri och filmer. */
@@ -6,7 +5,6 @@ export const startsida = defineType({
   name: "startsida",
   title: "Startsidan",
   type: "document",
-  icon: HomeIcon,
   groups: [
     { name: "topp", title: "Text högst upp", default: true },
     { name: "galleri", title: "Bilder" },

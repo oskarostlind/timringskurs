@@ -1,4 +1,3 @@
-import { CalendarIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 /** Ett enskilt kurstillfälle: datum, ort, pris och anmälan. */
@@ -6,7 +5,6 @@ export const tillfalle = defineType({
   name: "tillfalle",
   title: "Kurstillfälle",
   type: "object",
-  icon: CalendarIcon,
   fields: [
     defineField({
       name: "startDatum",

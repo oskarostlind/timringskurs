@@ -1,11 +1,9 @@
-import { BookIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const kurs = defineType({
   name: "kurs",
   title: "Kurs",
   type: "document",
-  icon: BookIcon,
   groups: [
     { name: "innehall", title: "Text och bild", default: true },
     { name: "tillfallen", title: "Datum och pris" },

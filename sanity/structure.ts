@@ -1,4 +1,3 @@
-import { BookIcon, CogIcon, HomeIcon } from "@sanity/icons";
 import type { StructureResolver } from "sanity/structure";
 
 /**
@@ -13,12 +12,10 @@ export const structure: StructureResolver = (S) =>
     .items([
       S.listItem()
         .title("Startsidan")
-        .icon(HomeIcon)
         .child(S.document().schemaType("startsida").documentId("startsida")),
 
       S.listItem()
         .title("Kurser")
-        .icon(BookIcon)
         .child(
           S.documentTypeList("kurs")
             .title("Kurser")
@@ -29,7 +26,6 @@ export const structure: StructureResolver = (S) =>
 
       S.listItem()
         .title("Kontakt och företagsuppgifter")
-        .icon(CogIcon)
         .child(
           S.document()
             .schemaType("sidinstallningar")
