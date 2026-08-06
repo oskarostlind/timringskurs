@@ -55,11 +55,5 @@ export const sociala: SocialKanal[] = [
   },
 ];
 
-export const nav = [
-  { href: "/kurser/timringskurs", label: "Timringskurs" },
-  { href: "/kurser/motorsagskurs", label: "Motorsågskurs" },
-  { href: "/kurser/rojsagskurs", label: "Röjsågskurs" },
-  { href: "/kurser/solosagskurs", label: "Solosågskurs" },
-  { href: "/kurser/jagarexamen", label: "Jägarexamen" },
-  { href: "/kurser/skjuttraning", label: "Skjutträning" },
-];
+// Menyn byggs från kurserna av hamtaNav() i src/lib/innehall.ts — en kurs som
+// döljs i Studio försvinner därför automatiskt ur menyn.

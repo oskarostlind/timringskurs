@@ -1,5 +1,7 @@
 import "server-only";
 
+import { cache } from "react";
+
 import { hamtaClient } from "../../sanity/lib/client";
 import { bildUrl } from "../../sanity/lib/image";
 import {
@@ -154,11 +156,15 @@ function omvandlaKurs(rad: RaKurs): Kurs {
   };
 }
 
-export async function hamtaKurser(): Promise<Kurs[]> {
+/**
+ * `cache` gör att flera anrop under samma render bara ger en fråga till
+ * Sanity — layout, sidhuvud, sidfot och metadata delar alltså svar.
+ */
+export const hamtaKurser = cache(async (): Promise<Kurs[]> => {
   const rader = await fraga<RaKurs[]>(kurserQuery);
   if (!rader || rader.length === 0) return kurserFallback;
   return rader.map(omvandlaKurs);
-}
+});
 
 export async function hamtaKurs(slug: string): Promise<Kurs | undefined> {
   const alla = await hamtaKurser();
@@ -194,7 +200,7 @@ type RaSite = {
   sociala?: SocialKanal[];
 };
 
-export async function hamtaSite(): Promise<Site> {
+export const hamtaSite = cache(async (): Promise<Site> => {
   const rad = await fraga<RaSite | null>(sidinstallningarQuery);
   if (!rad) return siteFallback;
 
@@ -213,13 +219,13 @@ export async function hamtaSite(): Promise<Site> {
       country: siteFallback.address.country,
     },
   };
-}
+});
 
-export async function hamtaSociala(): Promise<SocialKanal[]> {
+export const hamtaSociala = cache(async (): Promise<SocialKanal[]> => {
   const rad = await fraga<RaSite | null>(sidinstallningarQuery);
   if (!rad?.sociala?.length) return socialaFallback;
   return rad.sociala;
-}
+});
 
 /* ---------- startsidan ---------- */
 
@@ -239,7 +245,7 @@ export function youtubeId(input: string): string {
   return match ? match[1] : input.trim();
 }
 
-export async function hamtaStartsida(): Promise<Startsida> {
+export const hamtaStartsida = cache(async (): Promise<Startsida> => {
   const rad = await fraga<RaStartsida | null>(startsidaQuery);
 
   if (!rad) {
@@ -264,4 +270,4 @@ export async function hamtaStartsida(): Promise<Startsida> {
         kalla: v.kalla,
       })),
   };
-}
+});
