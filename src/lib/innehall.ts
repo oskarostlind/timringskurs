@@ -11,7 +11,12 @@ import {
 } from "../../sanity/lib/queries";
 
 import { kurser as kurserFallback, type Kurs, type Tillfalle } from "@/data/kurser";
-import { galleri as galleriFallback, videos as videosFallback } from "@/data/media";
+import {
+  galleri as galleriFallback,
+  heroBild as heroBildFallback,
+  kursbilder,
+  videos as videosFallback,
+} from "@/data/media";
 import {
   site as siteFallback,
   sociala as socialaFallback,
@@ -147,8 +152,9 @@ function omvandlaKurs(rad: RaKurs): Kurs {
     innehall: rad.innehall ?? [],
     forkunskaper: rad.forkunskaper ?? "",
     taMed: rad.taMed ?? [],
-    bild: bildFran(rad.bild, 1600),
-    bildAlt: rad.bild?.alt,
+    // Saknar kursen bild i Studio visas reservbilden från gamla sajten.
+    bild: bildFran(rad.bild, 1600) ?? kursbilder[rad.slug]?.src,
+    bildAlt: rad.bild?.alt ?? kursbilder[rad.slug]?.alt,
     tillfallen,
     externAnmalan: rad.externAnmalan,
     lankar: rad.lankar,
@@ -250,18 +256,23 @@ export const hamtaStartsida = cache(async (): Promise<Startsida> => {
 
   if (!rad) {
     return {
+      heroBild: heroBildFallback,
       galleri: galleriFallback,
       videor: videosFallback,
     };
   }
 
+  const heroBild = bildFran(rad.heroBild, 2000);
+  const galleri = (rad.galleri ?? [])
+    .map((b) => ({ src: bildFran(b, 1200), alt: b.alt ?? "" }))
+    .filter((b): b is GalleriBild => Boolean(b.src));
+
   return {
     rubrik: rad.rubrik,
     ingress: rad.ingress,
-    heroBild: bildFran(rad.heroBild, 2000),
-    galleri: (rad.galleri ?? [])
-      .map((b) => ({ src: bildFran(b, 1200), alt: b.alt ?? "" }))
-      .filter((b): b is GalleriBild => Boolean(b.src)),
+    // Reservbilderna från gamla sajten gäller tills Ola lägger upp egna i Studio.
+    heroBild: heroBild ?? heroBildFallback,
+    galleri: galleri.length > 0 ? galleri : galleriFallback,
     videor: (rad.videor ?? [])
       .filter((v) => v.youtubeId && v.titel)
       .map((v) => ({

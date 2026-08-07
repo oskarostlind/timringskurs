@@ -7,6 +7,8 @@ type Props = {
   className?: string;
   priority?: boolean;
   sizes?: string;
+  /** Mörk slöja över bilden så att ljus text ovanpå går att läsa. */
+  scrim?: boolean;
 };
 
 /**
@@ -20,6 +22,7 @@ export default function Media({
   className = "",
   priority = false,
   sizes = "(max-width: 768px) 100vw, 50vw",
+  scrim = false,
 }: Props) {
   if (src) {
     return (
@@ -32,6 +35,12 @@ export default function Media({
           sizes={sizes}
           className="object-cover"
         />
+        {scrim && (
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-br from-skog-950/85 via-skog-950/65 to-skog-900/75"
+          />
+        )}
       </div>
     );
   }

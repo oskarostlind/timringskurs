@@ -61,6 +61,16 @@ Sidorna hämtar om innehållet var 60:e sekund (`REVALIDERA` i `src/lib/innehall
 
 Formuläret postar till `/api/anmalan`, som mejlar via [Resend](https://resend.com). Utan `RESEND_API_KEY` visar formuläret ett meddelande om att ringa istället, och anmälan loggas i serverloggen.
 
+## Bilder
+
+Bilderna i `public/bilder` är hämtade från gamla timringskurs.nu (Olas egna foton), nedskalade till max 2000 px och rensade från EXIF-data.
+
+- `public/bilder/hero-timringskurs.jpg` — bakgrund högst upp på startsidan
+- `public/bilder/kurser/<slug>.jpg` — kortbild och sidhuvud per kurs
+- `public/bilder/galleri/` — galleriet på startsidan
+
+De används **bara som reserv**. Laddar Ola upp en bild på motsvarande plats i Studio (*Startsidan → Bilder*, eller bildfältet på kursen) är det den som visas i stället — ingen kodändring behövs. Tömmer han galleriet i Studio faller sajten tillbaka på bilderna här.
+
 ## Sidor
 
 - `/` — start: hero, kommande tillfällen, kursutbud, om, video, galleri, kontakt
@@ -73,7 +83,7 @@ Formuläret postar till `/api/anmalan`, som mejlar via [Resend](https://resend.c
 ## Kvar att fylla i
 
 - Kurstillfällen med riktiga datum i Studio
-- Högupplösta bilder (minst 1600 px breda) i Studio
+- Nyare/bättre bilder i Studio om Ola vill byta ut de gamla (minst 1600 px breda)
 - E-postadress och organisationsnummer under *Kontakt och företagsuppgifter*
 - Olas egen text om bakgrund och behörigheter i `src/app/(site)/om/page.tsx`
 - Priser för motorsåg, röjsåg och solosåg

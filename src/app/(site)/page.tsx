@@ -25,6 +25,7 @@ export default async function Home() {
           src={startsida.heroBild}
           alt=""
           priority
+          scrim
           sizes="100vw"
           className="absolute inset-0 -z-10 h-full w-full"
         />

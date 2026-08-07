@@ -69,7 +69,8 @@ export const kurser: Kurs[] = [
       "Egen yxa om du har",
       "Matsäck",
     ],
-    // bild: "/bilder/timringskurs.jpg", // ← lägg bilden i public/bilder och avkommentera
+    bild: "/bilder/kurser/timringskurs.jpg",
+    bildAlt: "Bandkniv och handverktyg på en bilad stock",
     externAnmalan: { namn: "Studieförbundet Vuxenskolan", url: SV_URL },
     tillfallen: [
       { datum: "9–10 maj", ort: "Kalix", anmalanUrl: SV_URL },
@@ -105,7 +106,8 @@ export const kurser: Kurs[] = [
       "Egen motorsåg om du har",
       "Matsäck",
     ],
-    // bild: "/bilder/motorsagskurs.jpg", // ← lägg bilden i public/bilder och avkommentera
+    bild: "/bilder/kurser/motorsagskurs.jpg",
+    bildAlt: "Fällning av träd med motorsåg i skogen",
     tillfallen: [],
   },
   {
@@ -135,7 +137,8 @@ export const kurser: Kurs[] = [
       "Egen röjsåg om du har",
       "Matsäck",
     ],
-    // bild: "/bilder/rojsagskurs.jpg", // ← lägg bilden i public/bilder och avkommentera
+    bild: "/bilder/kurser/rojsagskurs.jpg",
+    bildAlt: "Kursdeltagare i skyddsutrustning under röjsågskurs",
     tillfallen: [],
   },
   {
@@ -159,7 +162,8 @@ export const kurser: Kurs[] = [
     ],
     forkunskaper: "Inga förkunskaper krävs.",
     taMed: ["Kläder efter väder", "Skyddsskor och handskar", "Matsäck"],
-    // bild: "/bilder/solosagskurs.jpg", // ← lägg bilden i public/bilder och avkommentera
+    bild: "/bilder/kurser/solosagskurs.jpg",
+    bildAlt: "Sågning av plank med solosåg",
     tillfallen: [],
   },
   {
@@ -190,7 +194,8 @@ export const kurser: Kurs[] = [
       "Legitimation",
       "Matsäck",
     ],
-    // bild: "/bilder/jagarexamen.jpg", // ← lägg bilden i public/bilder och avkommentera
+    bild: "/bilder/kurser/jagarexamen.jpg",
+    bildAlt: "Älgfigur med träffbild från skjutbanan",
     lankar: [
       {
         namn: "Jägarexamen Norrbotten",
@@ -230,7 +235,8 @@ export const kurser: Kurs[] = [
       "Hörselskydd och skyddsglasögon",
       "Kläder efter väder",
     ],
-    // bild: "/bilder/skjuttraning.jpg", // ← lägg bilden i public/bilder och avkommentera
+    bild: "/bilder/kurser/skjuttraning.jpg",
+    bildAlt: "Elektronisk måltavla som visar träffar på älgfigur",
     tillfallen: [{ datum: "11–12 juli", ort: "Sunderbyn", pris: "2 500 kr" }],
   },
 ];

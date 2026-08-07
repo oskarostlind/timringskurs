@@ -59,7 +59,14 @@ export default async function KursSida({ params }: Params) {
 
       {/* Rubrik */}
       <section className="relative isolate overflow-hidden bg-skog-900 text-lin-50">
-        <Media src={kurs.bild} alt="" className="absolute inset-0 -z-10 h-full w-full" />
+        <Media
+          src={kurs.bild}
+          alt=""
+          priority
+          scrim
+          sizes="100vw"
+          className="absolute inset-0 -z-10 h-full w-full"
+        />
         <div className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
           <nav aria-label="Brödsmulor" className="text-sm text-lin-200">
             <Link href="/" className="hover:text-white">
