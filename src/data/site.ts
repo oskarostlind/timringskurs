@@ -43,11 +43,10 @@ export const site: Site = {
   },
   // TODO: fyll i organisationsnummer
   orgNr: "",
-  // Tillfällig bild: en ruta ur Skelleftekanalens film om timringskursen
-  // (youtu.be/wVPJoZo3hPg). Bara 288×360 och tekniskt sett deras material —
-  // byt ut mot ett riktigt foto i Studio så fort Ola skickar ett.
+  // Olas egen profilbild från Facebook, beskuren till 4:5. Bara 358×448, så
+  // byt gärna upp till ett foto i högre upplösning via Studio.
   portratt: "/bilder/ola-portratt.jpg",
-  portrattAlt: "Ola Andersson i skogen",
+  portrattAlt: "Ola Andersson i hjälm och skyddsjacka ute i skogen",
 };
 
 /**
