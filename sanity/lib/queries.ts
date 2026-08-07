@@ -24,7 +24,8 @@ export const kurserQuery = defineQuery(`
 
 export const sidinstallningarQuery = defineQuery(`
   *[_type == "sidinstallningar"][0] {
-    namn, tagline, beskrivning, telefon, telefonHref, epost, ort, adress, orgNr, sociala
+    namn, tagline, beskrivning, telefon, telefonHref, epost, ort, adress, orgNr,
+    portratt, sociala
   }
 `);
 

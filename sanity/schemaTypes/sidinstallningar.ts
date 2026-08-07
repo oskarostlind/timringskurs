@@ -72,6 +72,24 @@ export const sidinstallningar = defineType({
       group: "foretag",
     }),
     defineField({
+      name: "portratt",
+      title: "Porträttbild",
+      type: "image",
+      group: "foretag",
+      options: { hotspot: true },
+      description:
+        "Bild på Ola som visas på Om-sidan. Stående bild fungerar bäst — dra i " +
+        "hotspoten så hamnar ansiktet rätt när bilden beskärs.",
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Bildbeskrivning",
+          type: "string",
+          description: "Till exempel ”Ola Andersson vid en timmerstock”.",
+        }),
+      ],
+    }),
+    defineField({
       name: "adress",
       title: "Adressrad",
       type: "string",

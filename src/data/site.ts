@@ -9,6 +9,9 @@ export type Site = {
   email: string;
   address: { line1: string; city: string; country: string };
   orgNr: string;
+  /** Porträtt på Om-sidan. Laddas upp i Studio; saknas det visas en platshållare. */
+  portratt?: string;
+  portrattAlt?: string;
 };
 
 export type SocialKanal = {

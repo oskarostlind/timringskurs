@@ -85,10 +85,11 @@ export default async function OmSida() {
 
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <Media
-            src={undefined}
-            alt={site.owner}
+            src={site.portratt}
+            alt={site.portrattAlt ?? site.owner}
             label="Porträtt"
             className="aspect-[4/5] w-full rounded-xl"
+            sizes="(max-width: 1024px) 100vw, 320px"
           />
           <div className="mt-6 rounded-xl border border-lin-200 bg-white p-6">
             <h2 className="font-display text-lg font-semibold text-skog-900">

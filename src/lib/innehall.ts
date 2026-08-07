@@ -203,6 +203,7 @@ type RaSite = {
   ort?: string;
   adress?: string;
   orgNr?: string;
+  portratt?: SanityBild;
   sociala?: SocialKanal[];
 };
 
@@ -219,6 +220,8 @@ export const hamtaSite = cache(async (): Promise<Site> => {
     phoneHref: rad.telefonHref || siteFallback.phoneHref,
     email: rad.epost || siteFallback.email,
     orgNr: rad.orgNr || siteFallback.orgNr,
+    portratt: bildFran(rad.portratt, 900),
+    portrattAlt: rad.portratt?.alt,
     address: {
       line1: rad.adress || siteFallback.address.line1,
       city: rad.ort || siteFallback.address.city,
