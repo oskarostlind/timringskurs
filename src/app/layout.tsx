@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { hamtaSite } from "@/lib/innehall";
 
@@ -43,7 +44,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="sv" className={`${inter.variable} ${fraunces.variable}`}>
-      <body className="flex min-h-screen flex-col">{children}</body>
+      <body className="flex min-h-screen flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
